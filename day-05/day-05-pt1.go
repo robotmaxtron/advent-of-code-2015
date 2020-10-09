@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strings"
 )
 
@@ -29,7 +30,7 @@ func main() {
 }
 
 func validateString(str string) bool {
-	return threeVowels(str) && doubleLetters() && banList()
+	return threeVowels(str) && doubleLetters(str) && banList(str)
 }
 
 func threeVowels(str string) bool {
@@ -47,9 +48,14 @@ func threeVowels(str string) bool {
 }
 
 func doubleLetters(str string) bool {
-
+	for pete := 0; pete < len(str)-1; pete++ {
+		if str[pete] == str[pete+1] {
+			return true
+		}
+	}
+	return false
 }
 
 func banList(str string) bool {
-
+	return !regexp.MustCompile("ab|cd|pq|xy").MatchString(str)
 }
